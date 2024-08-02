@@ -1,6 +1,7 @@
 var express = require("express");
 var app = express();
 const port = 3000;
+
 // milddeware para contenido estatico
 app.use(express.static(__dirname +'/public'));
 
@@ -16,9 +17,16 @@ app.get ('/',function (rep,res) {
 
 // ejemplo de enrutamiento
 app.get('/servicios',(rep,res)=>{
-  res.send('Bienvenidos a la pagina de enrutamiento')
+  res.render('servicios',{titulo:"nuestros servicios dinamicos"});
 })
 
+// direccionar lista 404 
+app.use((res,req,next)=>{
+   req.status(404).render('404',{
+    titulo:"error 404 ",
+    descripcion:"pagina no encontrada"
+  });
+});
 
 
 
